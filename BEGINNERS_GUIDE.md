@@ -180,7 +180,17 @@ pip install -r requirements.txt
 python improved_model.py
 ```
 
-### **Step 3: Check Results**
+### **Step 3: Try the Interactive Predictor! 🎮**
+```bash
+python interactive_predictor.py
+```
+
+This lets you input your own house details and get price predictions!
+Just like the example in the guide:
+- Input: "A house with 3 bedrooms, 2 bathrooms, 2000 square feet, built in 1990"
+- Output: "This house should cost around $350,000"
+
+### **Step 4: Check Results**
 - Look at the console output for detailed results
 - Check `plots/improved_model_results.png` for visualizations
 

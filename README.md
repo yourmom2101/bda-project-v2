@@ -62,7 +62,16 @@ This project takes information about a house and predicts its price. It's like h
    python test_project.py
    ```
 
-5. **📊 Check the results**
+5. **🎮 Try the interactive predictor!**
+   ```bash
+   python interactive_predictor.py
+   ```
+   This lets you input your own house details and get price predictions!
+   Just like the example in the guide:
+   - Input: "A house with 3 bedrooms, 2 bathrooms, 2000 square feet, built in 1990"
+   - Output: "This house should cost around $350,000"
+
+6. **📊 Check the results**
    - Look in the `plots/` folder for beautiful graphs
    - Read the output to see how accurate the predictions are
 
@@ -81,6 +90,7 @@ python simple_main.py
 bda-project-v2/
 ├── 📄 README.md                    # This file - explains everything!
 ├── 📄 test_project.py              # Simple working version (start here!)
+├── 📄 interactive_predictor.py     # 🎮 Interactive house price predictor!
 ├── 📄 simple_main.py               # Full analysis with all 6 models
 ├── 📄 requirements.txt             # List of tools the project needs
 ├── 📄 LICENSE                      # MIT License
