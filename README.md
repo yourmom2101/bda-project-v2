@@ -62,7 +62,13 @@ This project takes information about a house and predicts its price. It's like h
    python test_project.py
    ```
 
-5. **🎮 Try the interactive predictor!**
+5. **🤖 Train and save models (first time only - takes ~5 minutes)**
+   ```bash
+   python improved_model.py
+   ```
+   This will train all models and save them to the `models/` directory for instant future use.
+
+6. **🎮 Try the interactive predictor (instant loading!)**
    ```bash
    python interactive_predictor.py
    ```
@@ -71,7 +77,7 @@ This project takes information about a house and predicts its price. It's like h
    - Input: "A house with 3 bedrooms, 2 bathrooms, 2000 square feet, built in 1990"
    - Output: "This house should cost around $350,000"
 
-6. **📊 Check the results**
+7. **📊 Check the results**
    - Look in the `plots/` folder for beautiful graphs
    - Read the output to see how accurate the predictions are
 
@@ -99,7 +105,11 @@ bda-project-v2/
 │   └── 📄 house_data.csv           # 33,049 houses with real data
 ├── 📁 plots/                       # Pictures and graphs
 │   └── 📄 results.png              # Generated visualization
-├── 📁 models/                      # Saved AI models
+├── 📁 models/                      # 💾 Saved trained models (created after first run)
+│   ├── 📄 ensemble_model.pkl       # Best performing ensemble model
+│   ├── 📄 random_forest_model.pkl  # Random Forest model
+│   ├── 📄 gradient_boosting_model.pkl # Gradient Boosting model
+│   └── 📄 xgboost_model.pkl        # XGBoost model
 ├── 📁 docs/                        # Detailed documentation
 │   └── 📄 GETTING_STARTED.md       # Step-by-step guide
 └── 📁 src/                         # Source code modules
@@ -108,6 +118,27 @@ bda-project-v2/
     ├── 📄 visualizer.py            # Creates beautiful graphs
     └── 📄 business_analyzer.py     # Analyzes business value
 ```
+
+## 💾 Model Persistence Feature
+
+**NEW!** Our models are now saved and can be loaded instantly! 🚀
+
+### 🎯 What this means:
+- **First run**: Train models once (~5 minutes)
+- **All future runs**: Load models instantly (<1 second)
+- **Consistent results**: Same model every time
+- **No retraining**: Save time and computational resources
+
+### 🔧 How it works:
+1. **Training**: `improved_model.py` trains all models and saves them to `models/` directory
+2. **Loading**: `interactive_predictor.py` loads saved models instantly
+3. **Persistence**: Models are saved as `.pkl` files with all necessary data (scaler, features, etc.)
+
+### 📊 Benefits:
+- ⚡ **Instant predictions** after first training
+- 🔄 **Consistent results** across runs
+- 💰 **Save computational costs**
+- 🎯 **Professional-grade implementation**
 
 ## 🧠 How it works
 
