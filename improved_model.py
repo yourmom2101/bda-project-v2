@@ -26,6 +26,7 @@ import pickle
 import os
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor, VotingRegressor
+from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import RobustScaler
 from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
 from xgboost import XGBRegressor
@@ -75,7 +76,31 @@ def train_and_save_models(X_train, X_test, y_train, y_test, enhanced_features):
     
     results = {}
     
-    # Model 1: Enhanced Random Forest
+    # Model 1: Linear Regression
+    print('📈 Training Linear Regression...')
+    lr_model = LinearRegression()
+    lr_model.fit(X_train_scaled, y_train)
+    y_pred = lr_model.predict(X_test_scaled)
+    
+    # Calculate accuracy metrics
+    r2 = r2_score(y_test, y_pred)
+    mse = mean_squared_error(y_test, y_pred)
+    mae = mean_absolute_error(y_test, y_pred)
+    
+    results['Linear Regression'] = {
+        'model': lr_model,
+        'R2': r2,
+        'MSE': mse,
+        'MAE': mae
+    }
+    
+    print(f'      📊 R² Score: {r2:.4f} ({r2*100:.1f}% accuracy)')
+    print(f'      💰 Average Error: ${mae:,.0f}')
+    
+    # Save Linear Regression model
+    save_model(lr_model, 'linear_regression_model.pkl', scaler, enhanced_features)
+    
+    # Model 2: Enhanced Random Forest
     print('🌲 Training Random Forest (Enhanced)...')
     rf_model = RandomForestRegressor(
         n_estimators=300,      # More trees = better accuracy
@@ -161,9 +186,10 @@ def train_and_save_models(X_train, X_test, y_train, y_test, enhanced_features):
     # Save XGBoost model
     save_model(xgb_model, 'xgboost_model.pkl', scaler, enhanced_features)
     
-    # Model 4: Ensemble (Voting Regressor)
+    # Model 5: Ensemble (Voting Regressor)
     print('🏆 Creating Ensemble Model...')
     ensemble_model = VotingRegressor([
+        ('lr', lr_model),
         ('rf', rf_model),
         ('gb', gb_model),
         ('xgb', xgb_model)
@@ -244,6 +270,7 @@ def load_and_evaluate_models():
     
     # Try to load each model
     model_files = [
+        ('Linear Regression', 'linear_regression_model.pkl'),
         ('Random Forest (Enhanced)', 'random_forest_model.pkl'),
         ('Gradient Boosting', 'gradient_boosting_model.pkl'),
         ('XGBoost', 'xgboost_model.pkl'),
@@ -477,6 +504,15 @@ def main():
         print(f'🏆 Most Important Features (from {best_model_name}):')
         for i, (feature, imp) in enumerate(feature_importance[:5], 1):
             print(f'   {i}. {feature}: {imp*100:.1f}%')
+    elif hasattr(best_model, 'coef_'):
+        # For Linear Regression, use coefficients
+        importance = np.abs(best_model.coef_)
+        feature_importance = list(zip(enhanced_features, importance))
+        feature_importance.sort(key=lambda x: x[1], reverse=True)
+        
+        print(f'🏆 Most Important Features (from {best_model_name}):')
+        for i, (feature, coef) in enumerate(feature_importance[:5], 1):
+            print(f'   {i}. {feature}: {coef:.2f}')
     else:
         print('📊 Feature importance not available for ensemble model')
 
@@ -518,6 +554,14 @@ def main():
         plt.yticks(range(top_features), [enhanced_features[i] for i in top_indices])
         plt.title(f'Top {top_features} Most Important Features', fontsize=14, fontweight='bold')
         plt.xlabel('Importance', fontsize=12)
+    elif hasattr(best_model, 'coef_'):
+        plt.subplot(2, 3, 2)
+        top_features = 8
+        top_indices = np.argsort(np.abs(best_model.coef_))[-top_features:]
+        plt.barh(range(top_features), np.abs(best_model.coef_[top_indices]), color='lightcoral')
+        plt.yticks(range(top_features), [enhanced_features[i] for i in top_indices])
+        plt.title(f'Top {top_features} Most Important Features (Coefficients)', fontsize=14, fontweight='bold')
+        plt.xlabel('|Coefficient|', fontsize=12)
 
     # 3. Actual vs Predicted (Best Model)
     plt.subplot(2, 3, 3)
