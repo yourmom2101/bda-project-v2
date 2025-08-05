@@ -1,0 +1,35 @@
+HOUSE DATA FEATURE ANALYSIS REPORT
+==================================================
+
+Dataset: 34,523 records, 19 features
+Analysis Date: 2025-08-04 20:42:54
+
+FEATURE TABLE:
+------------------------------------------------------------------------------------------------------------------------
+Feature         Data Type    NaN Count  NaN %    Description
+------------------------------------------------------------------------------------------------------------------------
+PropType        object       3          0.0    % Property type (Residential/Commercial)
+Taxkey          int64        0          0.0    % Unique property identifier
+Address         object       0          0.0    % Property street address
+CondoProject    object       27867      80.7   % Condo project name (if applicable)
+District        int64        0          0.0    % City district number
+Nbhd            int64        0          0.0    % Neighborhood code
+Style           object       6          0.0    % Architectural style
+Extwall         object       9899       28.7   % Exterior wall material
+Stories         float64      0          0.0    % Number of stories
+Year_Built      int64        0          0.0    % Year property was built
+Nr_of_rms       int64        0          0.0    % Total number of rooms
+Fin_sqft        int64        0          0.0    % Finished square footage
+Units           int64        0          0.0    % Number of units in building
+Bdrms           int64        0          0.0    % Number of bedrooms
+Fbath           int64        0          0.0    % Number of full bathrooms
+Hbath           int64        0          0.0    % Number of half bathrooms
+Lotsize         int64        0          0.0    % Lot size in square feet
+Sale_date       object       0          0.0    % Date of sale
+Sale_price      int64        0          0.0    % Sale price in dollars
+
+SUMMARY:
+Total Features: 19
+Features with NaN: 4
+Total NaN values: 37,775
+Data completeness: 94.2%
