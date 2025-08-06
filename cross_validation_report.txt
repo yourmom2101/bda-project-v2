@@ -1,0 +1,42 @@
+CROSS-VALIDATION ANALYSIS REPORT
+==================================================
+
+MODEL PERFORMANCE SUMMARY:
+------------------------------
+Linear Regression:
+  Mean CV Score: 0.8860
+  Standard Deviation: ±0.0111
+  Min Score: 0.8752
+  Max Score: 0.9059
+  Coefficient of Variation: 0.0125
+
+Random Forest:
+  Mean CV Score: 0.9928
+  Standard Deviation: ±0.0042
+  Min Score: 0.9876
+  Max Score: 0.9964
+  Coefficient of Variation: 0.0042
+
+Gradient Boosting:
+  Mean CV Score: 0.9933
+  Standard Deviation: ±0.0029
+  Min Score: 0.9886
+  Max Score: 0.9967
+  Coefficient of Variation: 0.0029
+
+XGBoost:
+  Mean CV Score: 0.9868
+  Standard Deviation: ±0.0038
+  Min Score: 0.9801
+  Max Score: 0.9915
+  Coefficient of Variation: 0.0039
+
+BEST PERFORMING MODEL: Gradient Boosting
+Mean CV Score: 0.9933
+
+MODEL STABILITY ANALYSIS:
+------------------------------
+Linear Regression: MODERATE (Std: ±0.0111)
+Random Forest: STABLE (Std: ±0.0042)
+Gradient Boosting: STABLE (Std: ±0.0029)
+XGBoost: STABLE (Std: ±0.0038)
