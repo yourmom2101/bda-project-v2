@@ -87,15 +87,23 @@ def train_and_save_models(X_train, X_test, y_train, y_test, enhanced_features):
     mse = mean_squared_error(y_test, y_pred)
     mae = mean_absolute_error(y_test, y_pred)
     
+    # Cross-validation
+    cv_scores = cross_val_score(lr_model, X_train_scaled, y_train, cv=5, scoring='r2')
+    cv_mean = cv_scores.mean()
+    cv_std = cv_scores.std()
+    
     results['Linear Regression'] = {
         'model': lr_model,
         'R2': r2,
         'MSE': mse,
-        'MAE': mae
+        'MAE': mae,
+        'CV_Mean': cv_mean,
+        'CV_Std': cv_std
     }
     
     print(f'      📊 R² Score: {r2:.4f} ({r2*100:.1f}% accuracy)')
     print(f'      💰 Average Error: ${mae:,.0f}')
+    print(f'      🔄 Cross-Validation: {cv_mean:.4f} ± {cv_std:.4f}')
     
     # Save Linear Regression model
     save_model(lr_model, 'linear_regression_model.pkl', scaler, enhanced_features)
@@ -117,15 +125,23 @@ def train_and_save_models(X_train, X_test, y_train, y_test, enhanced_features):
     mse = mean_squared_error(y_test, y_pred)
     mae = mean_absolute_error(y_test, y_pred)
     
+    # Cross-validation
+    cv_scores = cross_val_score(rf_model, X_train_scaled, y_train, cv=5, scoring='r2')
+    cv_mean = cv_scores.mean()
+    cv_std = cv_scores.std()
+    
     results['Random Forest (Enhanced)'] = {
         'model': rf_model,
         'R2': r2,
         'MSE': mse,
-        'MAE': mae
+        'MAE': mae,
+        'CV_Mean': cv_mean,
+        'CV_Std': cv_std
     }
     
     print(f'      📊 R² Score: {r2:.4f} ({r2*100:.1f}% accuracy)')
     print(f'      💰 Average Error: ${mae:,.0f}')
+    print(f'      🔄 Cross-Validation: {cv_mean:.4f} ± {cv_std:.4f}')
     
     # Save Random Forest model
     save_model(rf_model, 'random_forest_model.pkl', scaler, enhanced_features)
@@ -145,15 +161,23 @@ def train_and_save_models(X_train, X_test, y_train, y_test, enhanced_features):
     mse = mean_squared_error(y_test, y_pred)
     mae = mean_absolute_error(y_test, y_pred)
     
+    # Cross-validation
+    cv_scores = cross_val_score(gb_model, X_train_scaled, y_train, cv=5, scoring='r2')
+    cv_mean = cv_scores.mean()
+    cv_std = cv_scores.std()
+    
     results['Gradient Boosting'] = {
         'model': gb_model,
         'R2': r2,
         'MSE': mse,
-        'MAE': mae
+        'MAE': mae,
+        'CV_Mean': cv_mean,
+        'CV_Std': cv_std
     }
     
     print(f'      📊 R² Score: {r2:.4f} ({r2*100:.1f}% accuracy)')
     print(f'      💰 Average Error: ${mae:,.0f}')
+    print(f'      🔄 Cross-Validation: {cv_mean:.4f} ± {cv_std:.4f}')
     
     # Save Gradient Boosting model
     save_model(gb_model, 'gradient_boosting_model.pkl', scaler, enhanced_features)
@@ -173,15 +197,23 @@ def train_and_save_models(X_train, X_test, y_train, y_test, enhanced_features):
     mse = mean_squared_error(y_test, y_pred)
     mae = mean_absolute_error(y_test, y_pred)
     
+    # Cross-validation
+    cv_scores = cross_val_score(xgb_model, X_train_scaled, y_train, cv=5, scoring='r2')
+    cv_mean = cv_scores.mean()
+    cv_std = cv_scores.std()
+    
     results['XGBoost'] = {
         'model': xgb_model,
         'R2': r2,
         'MSE': mse,
-        'MAE': mae
+        'MAE': mae,
+        'CV_Mean': cv_mean,
+        'CV_Std': cv_std
     }
     
     print(f'      📊 R² Score: {r2:.4f} ({r2*100:.1f}% accuracy)')
     print(f'      💰 Average Error: ${mae:,.0f}')
+    print(f'      🔄 Cross-Validation: {cv_mean:.4f} ± {cv_std:.4f}')
     
     # Save XGBoost model
     save_model(xgb_model, 'xgboost_model.pkl', scaler, enhanced_features)
